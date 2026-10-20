@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="culturaleventregistrationsystem.client/culturaleventregistrationsystem.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="CulturalEventRegistrationSystem.Server/CulturalEventRegistrationSystem.Server.csproj" />
+</Solution>
