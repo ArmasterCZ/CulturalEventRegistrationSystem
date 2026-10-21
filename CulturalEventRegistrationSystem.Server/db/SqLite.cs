@@ -1,6 +1,7 @@
 ﻿using CulturalEventRegistrationSystem.Server.Interface;
 using CulturalEventRegistrationSystem.Server.models;
 using InterpolatedSql.SqlBuilders;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SQLite;
 using System.Transactions;
 
@@ -10,11 +11,18 @@ namespace CulturalEventRegistrationSystem.Server.db
     {
         private string connString = "Data Source=db/SqliteDatabase.sqlite;Version=3;";
 
-        public async Task<RegistrationsModel> Create(RegistrationsModel registration)
+        public async Task<RegistrationsModel> Create(RegistrationsModel registration, int maxNumberOfReservations)
         {
             using SQLiteConnection dbConnection = new(connString);
             dbConnection.Open();
             using TransactionScope transaction = new TransactionScope();
+
+            var numberOfReservations = await GetNumberOfReservedSeats(null, dbConnection);
+            if (numberOfReservations + registration.TicketsReserved> maxNumberOfReservations)
+            {
+                throw new ValidationException($"Počet volných míst na události je menší než požadovaný. Aktuálně zbývá {maxNumberOfReservations - numberOfReservations} míst.");
+            }
+
             var query = new SqlBuilder(
                 $"""
                 INSERT INTO Registrations (Id, Email, Tel, TicketsReserved) 
@@ -62,15 +70,23 @@ namespace CulturalEventRegistrationSystem.Server.db
             return result;
         }
 
-        public async Task<bool> Update(RegistrationsModel registration)
+        public async Task<bool> Update(RegistrationsModel registration, int maxNumberOfReservations)
         {
             using SQLiteConnection dbConnection = new(connString);
             dbConnection.Open();
             using TransactionScope transaction = new TransactionScope();
+
+            //check
+            var numberOfReservations = await GetNumberOfReservedSeats(registration.Id, dbConnection);
+            if (numberOfReservations + registration.TicketsReserved > maxNumberOfReservations)
+            {
+                throw new ValidationException($"Počet volných míst na události je menší než požadovaný. Aktuálně zbývá {maxNumberOfReservations - numberOfReservations} míst.");
+            }
+
             var query = new SqlBuilder(
                 $"""
-                UPDATE Registrations 
-                SET Email='{registration.Email}',
+                UPDATE Registrations SET
+                Email='{registration.Email}',
                 Tel='{registration.Tel}',
                 TicketsReserved='{registration.TicketsReserved}'
                 WHERE Id='{registration.Id}'
@@ -102,6 +118,33 @@ namespace CulturalEventRegistrationSystem.Server.db
             transaction.Complete();
             dbConnection.Close();
             return true;
+        }
+
+        public async Task<int> GetNumberOfReservedSeats(string countExceptId)
+        {
+            using SQLiteConnection dbConnection = new(connString);
+            dbConnection.Open();
+            int result = await GetNumberOfReservedSeats(countExceptId, dbConnection);
+            dbConnection.Close();
+            return result;
+        }
+
+        private async Task<int> GetNumberOfReservedSeats(string? countExceptId, SQLiteConnection dbConnection)
+        {
+            int? result = null;
+            var query = new SqlBuilder($"SELECT SUM(TicketsReserved) TicketsSum from Registrations where Id != '{countExceptId}'").Build();
+            var command = new SQLiteCommand(query.Sql, dbConnection);
+            for (var i = 0; i < query.SqlParameters.Count; i++)
+            {
+                command.Parameters.Add(new SQLiteParameter($"p{i}", countExceptId));
+            }
+            SQLiteDataReader reader = command.ExecuteReader();
+            while (await reader.ReadAsync())
+            {
+                //load data
+                result = int.Parse(reader["TicketsSum"].ToString());
+            }
+            return result ?? 0;
         }
 
         //public async Task CreateDatabase()
