@@ -4,7 +4,7 @@ namespace CulturalEventRegistrationSystem.Server.Utils
 {
     public class IdGenerator : IIdGenerator
     {
-        private readonly Random rng = new Random();
+        private readonly Random rng = new();
 
         /// <summary>
         /// generate registration Id

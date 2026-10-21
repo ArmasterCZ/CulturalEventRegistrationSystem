@@ -6,8 +6,8 @@ namespace CulturalEventRegistrationSystem.Server.Interface
     {
         Task<RegistrationsModel> Create(RegistrationsModel registration, int maxNumberOfReservations);
         Task<bool> Delete(string id);
-        Task<RegistrationsModel> Get(string id);
-        Task<int> GetNumberOfReservedSeats(string countExceptId);
+        Task<RegistrationsModel?> Get(string id);
+        Task<int> GetNumberOfReservedSeats(string? countExceptId);
         Task<bool> Update(RegistrationsModel registration, int maxNumberOfReservations);
     }
 }

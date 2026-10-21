@@ -40,9 +40,9 @@ namespace CulturalEventRegistrationSystem.Server.db
             return registration;
         }
 
-        public async Task<RegistrationsModel> Get(string id)
+        public async Task<RegistrationsModel?> Get(string id)
         {
-            RegistrationsModel result = null;
+            RegistrationsModel? result = null;
             using SQLiteConnection dbConnection = new(connString);
             dbConnection.Open();
             using TransactionScope transaction = new TransactionScope();
@@ -97,10 +97,10 @@ namespace CulturalEventRegistrationSystem.Server.db
             {
                 command.Parameters.Add(new SQLiteParameter($"p{i}", param[i]));
             }
-            command.ExecuteNonQuery();
+            var numberOfUpdatedItems = command.ExecuteNonQuery();
             transaction.Complete();
             dbConnection.Close();
-            return true;
+            return numberOfUpdatedItems > 0;
         }
 
         public async Task<bool> Delete(string id)
@@ -120,7 +120,7 @@ namespace CulturalEventRegistrationSystem.Server.db
             return true;
         }
 
-        public async Task<int> GetNumberOfReservedSeats(string countExceptId)
+        public async Task<int> GetNumberOfReservedSeats(string? countExceptId)
         {
             using SQLiteConnection dbConnection = new(connString);
             dbConnection.Open();

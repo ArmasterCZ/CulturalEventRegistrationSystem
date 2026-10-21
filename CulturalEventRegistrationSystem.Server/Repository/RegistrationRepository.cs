@@ -15,7 +15,7 @@ namespace CulturalEventRegistrationSystem.Server.Repository
             this.idGenerator = idGenerator;
         }
 
-        public async Task<RegistrationsModel> Get(string id)
+        public async Task<RegistrationsModel?> Get(string id)
         {
             return await dbContext.Get(id);
         }
@@ -57,7 +57,7 @@ namespace CulturalEventRegistrationSystem.Server.Repository
         }
 
         private const int maxNumberOfReservations = 100;
-        private async Task<ValidationResult> CheckRezervationCondition(int requiredSpace, string countExceptId)
+        private async Task<ValidationResult?> CheckRezervationCondition(int requiredSpace, string? countExceptId = null)
         {
             if (requiredSpace < 1)
             {

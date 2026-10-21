@@ -7,7 +7,7 @@ namespace CulturalEventRegistrationSystem.Server.Interface
     {
         Task<RegistrationsModel> Create(RegistrationsModel model);
         Task<bool> Delete(string Id);
-        Task<RegistrationsModel> Get(string id);
+        Task<RegistrationsModel?> Get(string id);
         Task<bool> Update(RegistrationsModel model);
     }
 }
