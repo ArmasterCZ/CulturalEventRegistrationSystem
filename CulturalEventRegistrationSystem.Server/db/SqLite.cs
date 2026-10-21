@@ -56,7 +56,7 @@ namespace CulturalEventRegistrationSystem.Server.db
             while (await reader.ReadAsync())
             {
                 //load data
-                var outTicketsReserved = int.Parse(reader["TicketsReserved"].ToString());
+                _ = int.TryParse(reader["TicketsReserved"].ToString(), out int outTicketsReserved);
                 result = new RegistrationsModel()
                 {
                     Id = reader["Id"].ToString(),
@@ -131,7 +131,7 @@ namespace CulturalEventRegistrationSystem.Server.db
 
         private async Task<int> GetNumberOfReservedSeats(string? countExceptId, SQLiteConnection dbConnection)
         {
-            int? result = null;
+            int result = 0;
             var query = new SqlBuilder($"SELECT SUM(TicketsReserved) TicketsSum from Registrations where Id != '{countExceptId}'").Build();
             var command = new SQLiteCommand(query.Sql, dbConnection);
             for (var i = 0; i < query.SqlParameters.Count; i++)
@@ -139,12 +139,13 @@ namespace CulturalEventRegistrationSystem.Server.db
                 command.Parameters.Add(new SQLiteParameter($"p{i}", countExceptId));
             }
             SQLiteDataReader reader = command.ExecuteReader();
+
             while (await reader.ReadAsync())
             {
                 //load data
-                result = int.Parse(reader["TicketsSum"].ToString());
+                _ = int.TryParse(reader["TicketsSum"].ToString(), out result);
             }
-            return result ?? 0;
+            return result;
         }
 
         //public async Task CreateDatabase()
