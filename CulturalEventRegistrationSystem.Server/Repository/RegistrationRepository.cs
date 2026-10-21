@@ -1,5 +1,5 @@
 ﻿using CulturalEventRegistrationSystem.Server.Interface;
-using CulturalEventRegistrationSystem.Server.models;
+using CulturalEventRegistrationSystem.Server.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace CulturalEventRegistrationSystem.Server.Repository

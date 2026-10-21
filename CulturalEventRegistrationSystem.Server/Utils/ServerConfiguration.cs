@@ -1,6 +1,6 @@
 ﻿using CulturalEventRegistrationSystem.Server.db;
 using CulturalEventRegistrationSystem.Server.Interface;
-using CulturalEventRegistrationSystem.Server.models;
+using CulturalEventRegistrationSystem.Server.Models;
 using CulturalEventRegistrationSystem.Server.Repository;
 
 namespace CulturalEventRegistrationSystem.Server.Utils

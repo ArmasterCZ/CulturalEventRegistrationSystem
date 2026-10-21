@@ -1,4 +1,4 @@
-﻿using CulturalEventRegistrationSystem.Server.models;
+﻿using CulturalEventRegistrationSystem.Server.Models;
 
 namespace CulturalEventRegistrationSystem.Server.Interface
 {

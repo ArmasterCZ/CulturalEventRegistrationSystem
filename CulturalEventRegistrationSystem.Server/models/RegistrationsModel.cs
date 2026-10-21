@@ -1,6 +1,6 @@
 using CulturalEventRegistrationSystem.Server.Interface;
 
-namespace CulturalEventRegistrationSystem.Server.models
+namespace CulturalEventRegistrationSystem.Server.Models
 {
 
     public class RegistrationsModel : IRegistrationsModel

@@ -1,5 +1,5 @@
 ﻿using CulturalEventRegistrationSystem.Server.Interface;
-using CulturalEventRegistrationSystem.Server.models;
+using CulturalEventRegistrationSystem.Server.Models;
 using InterpolatedSql.SqlBuilders;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SQLite;

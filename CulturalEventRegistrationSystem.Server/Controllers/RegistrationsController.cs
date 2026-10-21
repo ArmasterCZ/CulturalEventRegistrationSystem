@@ -1,5 +1,5 @@
 using CulturalEventRegistrationSystem.Server.Interface;
-using CulturalEventRegistrationSystem.Server.models;
+using CulturalEventRegistrationSystem.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CulturalEventRegistrationSystem.Server.Controllers
