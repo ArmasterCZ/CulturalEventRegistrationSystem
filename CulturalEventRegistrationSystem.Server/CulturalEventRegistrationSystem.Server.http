@@ -1,6 +1,6 @@
 @CulturalEventRegistrationSystem.Server_HostAddress = http://localhost:5194
 
-GET {{CulturalEventRegistrationSystem.Server_HostAddress}}/weatherforecast/
+GET {{CulturalEventRegistrationSystem.Server_HostAddress}}/Registrations
 Accept: application/json
 
 ###

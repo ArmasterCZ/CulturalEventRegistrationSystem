@@ -16,6 +16,13 @@ namespace CulturalEventRegistrationSystem.Server.Controllers
         }
 
         [HttpGet]
+        public async Task<ActionResult<RegistrationsModel>> GetTest()
+        {
+            var result = await repository.Get("0DD23V");
+            return result != null ? Ok(result) : NotFound();
+        }
+
+        [HttpGet]
         public async Task<ActionResult<RegistrationsModel>> Get(string id)
         {
             var result = await repository.Get(id);
