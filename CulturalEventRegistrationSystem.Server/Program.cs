@@ -9,6 +9,12 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddDiConfiguration();
 
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
