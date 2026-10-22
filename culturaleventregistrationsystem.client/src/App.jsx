@@ -36,7 +36,7 @@ function App() {
             justifyContent: "space-between",
         }} >
             <Typography variant="h3" sx={{ my: 4, textAlign: "left" }}>Vyplňte registrační číslo a poté načtěte nebo smažte rezervaci.</Typography>
-            <TextField id="registrationId" label="Registrační číslo" variant="filled" value={regId} />
+            <TextField id="registrationId" label="Registrační číslo" variant="filled" value={regId} onChange={(e) => setRegId(e.target.value)} />
             <Box sx={{
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -54,10 +54,10 @@ function App() {
             justifyContent: "space-between",
         }} >
             <Typography variant="h3" sx={{ my: 4, textAlign: "left" }}>Upravte vlastnosti rezervace {regId} a uložte změny.</Typography>
-            <TextField sx={{ m: 1 }} id="registrationId" label="Registrační číslo" variant="filled" value={regId} />
-            <TextField sx={{ m: 1 }} id="registrationEmail" label="Email" variant="filled" value={regEmail} />
-            <TextField sx={{ m: 1 }} id="registrationTel" label="Telefon" variant="filled" value={regTel} />
-            <TextField sx={{ m: 1 }} id="registrationTicketsReserved" label="Rezervované lístky" variant="filled" value={regTicketsReserved} />
+            <TextField sx={{ m: 1 }} id="registrationId" label="Registrační číslo" variant="filled" value={regId} onChange={(e) => setRegId(e.target.value)} />
+            <TextField sx={{ m: 1 }} id="registrationEmail" label="Email" variant="filled" value={regEmail} onChange={(e) => setRegEmail(e.target.value)} />
+            <TextField sx={{ m: 1 }} id="registrationTel" label="Telefon" variant="filled" value={regTel} onChange={(e) => setRegTel(e.target.value)} />
+            <TextField sx={{ m: 1 }} id="registrationTicketsReserved" label="Rezervované lístky" variant="filled" value={regTicketsReserved} onChange={(e) => setRegTicketsReserved(e.target.value)} />
             <Box sx={{
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -78,9 +78,9 @@ function App() {
         }} >
             <Typography variant="h3" sx={{ my: 4, textAlign: "left" }}>Zadejte údaje nutné pro registraci. A poté potvrďte rezervací.</Typography>
 
-            <TextField sx={{ m: 1 }} id="registrationEmail" label="Email" variant="filled" value={regEmail} />
-            <TextField sx={{ m: 1 }} id="registrationTel" label="Telefon" variant="filled" value={regTel} />
-            <TextField sx={{ m: 1 }} id="registrationTicketsReserved" label="Rezervované lístky" variant="filled" value={regTicketsReserved} />
+            <TextField sx={{ m: 1 }} id="registrationEmail" label="Email" variant="filled" value={regEmail} onChange={(e) => setRegEmail(e.target.value)} />
+            <TextField sx={{ m: 1 }} id="registrationTel" label="Telefon" variant="filled" value={regTel} onChange={(e) => setRegTel(e.target.value)} />
+            <TextField sx={{ m: 1 }} id="registrationTicketsReserved" label="Rezervované lístky" variant="filled" value={regTicketsReserved} onChange={(e) => setRegTicketsReserved(e.target.value)} />
             <Box sx={{
                 flexDirection: "row",
                 justifyContent: "space-between",
