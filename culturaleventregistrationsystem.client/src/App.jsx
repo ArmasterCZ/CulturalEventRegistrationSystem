@@ -9,10 +9,10 @@ function App() {
     const [infoPageText, setInfoPageText] = useState("Text ze serveru.");
     const [currentPage, setCurrentPage] = useState("pageInit");
 
-    const [regId, setRegId] = useState("0DD23V");
-    const [regEmail, setRegEmail] = useState("myEmail1@centrum.com");
-    const [regTel, setRegTel] = useState("492 447 262");
-    const [regTicketsReserved, setRegTicketsReserved] = useState("5");
+    const [regId, setRegId] = useState("");
+    const [regEmail, setRegEmail] = useState("");
+    const [regTel, setRegTel] = useState("");
+    const [regTicketsReserved, setRegTicketsReserved] = useState("");
 
     const pageInit = currentPage == "pageInit"
         ?
