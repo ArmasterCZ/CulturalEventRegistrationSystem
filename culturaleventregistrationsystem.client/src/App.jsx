@@ -128,7 +128,10 @@ function App() {
         try {
             const response = await fetch('Registrations/Delete?id=' + textId.regId, { signal: abortControllerRef.current?.signal, method: 'DELETE' });
             if (response.ok) {
-                setInfoPageText("Rezervace s číslem " + textId.regId + " smazána.");
+                const deletedId = await response.text();
+                setInfoPageText("Rezervace s číslem " + deletedId + " smazána.");
+                //delete catched ID
+                setRegId("");
             } else {
                 throw new Error(response?.status);
             }
@@ -191,8 +194,10 @@ function App() {
             const response = await fetch('Registrations/Create', { signal: abortControllerRef.current?.signal, method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(registrationsConstr) });
             if (response.ok) {
                 const data = await response.json();
-                //setRegistrations(data);
-                setInfoPageText("Rezervace s číslem " + JSON.parse(JSON.stringify(data))?.Id + " vytvořena. Zapište si registrařní číslo!");
+                const createdId = JSON.parse(JSON.stringify(data))?.Id;
+                //catche ID for editation
+                setRegId(createdId);
+                setInfoPageText("Rezervace s číslem " + createdId + " vytvořena. Zapište si registrařní číslo!");
             } else {
                 throw new Error(response?.status);
             }

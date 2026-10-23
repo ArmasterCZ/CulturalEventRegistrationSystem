@@ -34,15 +34,15 @@ namespace CulturalEventRegistrationSystem.Server.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<bool>> Update(RegistrationsModel model)
+        public async Task<ActionResult<RegistrationsModel>> Update(RegistrationsModel model)
         {
-            return (await repository.Update(model)) ? Ok() : NotFound();
+            return (await repository.Update(model)) ? Ok(model) : NotFound();
         }
 
         [HttpDelete]
-        public async Task<ActionResult<bool>> Delete(string id)
+        public async Task<ActionResult<string>> Delete(string id)
         {
-            return (await repository.Delete(id)) ? Ok() : NotFound();
+            return (await repository.Delete(id)) ? Ok(id) : NotFound();
         }
 
     }
